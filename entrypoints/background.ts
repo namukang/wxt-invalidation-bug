@@ -4,13 +4,12 @@ export default defineBackground(() => {
   browser.action.onClicked.addListener(async (tab: Browser.tabs.Tab) => {
     const tabId = tab.id!;
     injectContentScript(tabId);
-    injectContentScript(tabId);
   });
 });
 
 async function injectContentScript(tabId: number) {
   await browser.scripting.executeScript({
-    target: { tabId },
+    target: { tabId, allFrames: true },
     files: ["content-scripts/content.js"],
   });
 }
